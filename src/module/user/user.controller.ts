@@ -1,33 +1,26 @@
+import { UserCreationRequestDTO, UserUpdateRequestDTO } from './user.types';
+import { CrudController } from './../../common/controller/crud.controller';
+import { User } from './../../entity/user.entity';
 import { UserService } from './user.service';
-import { Controller, Get, Param, Body, Post, Put, HttpCode, Delete, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller('user')
-export class UserController {
-  constructor(private service: UserService) {}
-
-  @Get('')
-  getAll(): Promise<any[]> {
-    return this.service.getAll();
-  }
-
-  @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id): Promise<any> {
-    return this.service.getOneOrThrow(id);
+export class UserController extends CrudController<User, UserCreationRequestDTO, UserUpdateRequestDTO, number> {
+  constructor(service: UserService) {
+    super(service);
   }
 
   @Post()
-  create(@Body() body: any): Promise<any> {
+  @UsePipes(new ValidationPipe())
+  create(@Body() body: UserCreationRequestDTO): Promise<User> {
     return this.service.create(body);
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id, @Body() body: any) {
+  @UsePipes(new ValidationPipe())
+  update(@Param('id') id: number, @Body() body: UserUpdateRequestDTO): Promise<User> {
     return this.service.update(id, body);
-  }
-
-  @Delete(':id')
-  @HttpCode(204)
-  delete(@Param('id', ParseIntPipe) id): Promise<void> {
-    return this.service.remove(id);
   }
 }

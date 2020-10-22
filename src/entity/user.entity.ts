@@ -1,13 +1,8 @@
-import { VersionColumn } from 'typeorm';
-import { CreateDateColumn } from 'typeorm';
-import { UpdateDateColumn } from 'typeorm';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { EntityWithId } from './../common/entity/base.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends EntityWithId<number> {
   @Column()
   firstName: string;
 
@@ -16,13 +11,4 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
-
-  @UpdateDateColumn()
-  public updated_date: Date;
-
-  @CreateDateColumn()
-  public created_date: Date;
-
-  @VersionColumn()
-  public version: number;
 }
