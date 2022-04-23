@@ -1,7 +1,7 @@
 import { AppLogger } from './../logger/app-logger.service';
 import { INestApplication } from '@nestjs/common';
-import ExpressRequestId from 'express-request-id';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { requestID as ExpressRequestId } from 'src/common/class/nest-utils';
 
 export default (app: INestApplication) => {
   app.use(ExpressRequestId());
