@@ -50,15 +50,15 @@ export class BaseService<T extends EntityWithId> {
     return this.processOutput(found);
   }
 
-  public async create(entity: DeepPartial<T>): Promise<T> {
+  public async create(entity: any): Promise<T> {
     const processed = this.processInput(entity);
     const saved = await this.repository.save(processed);
     return this.processOutput(await this.repository.findOne(saved.id));
   }
 
-  public async update<idType>(id: idType, entity: DeepPartial<T>): Promise<T> {
+  public async update<idType>(id: idType, entity: any): Promise<T> {
     const found: T = await this.getOneOrThrow(id);
-    const entityToSave = this.repository.create(entity);
+    const entityToSave = this.repository.create(entity as DeepPartial<T>);
     entityToSave.id = found.id;
     const processed = this.processInput(entityToSave);
     await this.repository.save(processed);
