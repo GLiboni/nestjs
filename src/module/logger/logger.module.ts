@@ -19,7 +19,7 @@ import { createLoggerConfig } from './logger-factory';
       },
       inject: [ConfigService],
     }),
-    MorganModule.forRoot()
+    MorganModule
   ],
   providers: [
     {
