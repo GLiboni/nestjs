@@ -2,7 +2,6 @@ import { CMFirestoreRepository } from './../class/firebase/CMFirestoreRepository
 import { EntityWithId } from './../entity/base.entity';
 import { Processor } from './../processors/processor.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DeepPartial } from 'typeorm';
 
 @Injectable()
 export class BaseService<T extends EntityWithId> {
@@ -59,7 +58,7 @@ export class BaseService<T extends EntityWithId> {
 
   public async update<idType>(id: idType, entity: any): Promise<T> {
     const found: T = await this.getOneOrThrow(id);
-    const entityToSave = this.repository.create(entity as DeepPartial<T>);
+    const entityToSave = this.repository.create(entity);
     entityToSave.id = found.id;
     const processed = this.processInput(entityToSave);
     await this.repository.save(processed);
