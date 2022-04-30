@@ -21,14 +21,18 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/apollo": "^10.0.9",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/graphql": "^10.0.10",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^8.0.3",
     "@types/morgan": "^1.9.3",
+    "apollo-server-express": "^3.6.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "graphql": "^16.4.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "nest-morgan": "^2.0.0",
@@ -83,8 +87,8 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "engines" : { 
-    "npm" : ">=8.5.0",
-    "node" : "=16.14.2"
+  "engines": {
+    "npm": ">=8.5.0",
+    "node": "=16.14.2"
   }
 }

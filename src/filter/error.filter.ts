@@ -7,6 +7,14 @@ export class ErrorFilter<T> implements ExceptionFilter {
   constructor(private logger: AppLogger, private slackLogger: SlackLoggerService) { }
 
   catch(exception: T, host: ArgumentsHost) {
+    const type: string = host.getType();
+    if (type === 'graphql') {
+      const errorString = this.getErrorFromMessage(exception);
+      this.logger.error(errorString);
+      this.slackLogger.log(errorString);
+      return;
+    }
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
