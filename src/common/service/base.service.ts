@@ -1,13 +1,14 @@
+import { CMFirestoreRepository } from './../class/firebase/CMFirestoreRepository';
 import { EntityWithId } from './../entity/base.entity';
 import { Processor } from './../processors/processor.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DeepPartial, Repository } from 'typeorm';
+import { DeepPartial } from 'typeorm';
 
 @Injectable()
 export class BaseService<T extends EntityWithId> {
   preProcessorList: Processor[] = [];
   postProcessorList: Processor[] = [];
-  repository: Repository<T>;
+  repository: CMFirestoreRepository<T>;
 
   public addPostProcessor(p: Processor) {
     this.postProcessorList.push(p);
@@ -33,7 +34,7 @@ export class BaseService<T extends EntityWithId> {
     return result;
   }
 
-  public setRepository(repo: Repository<T>) {
+  public setRepository(repo: CMFirestoreRepository<T>) {
     this.repository = repo;
   }
 

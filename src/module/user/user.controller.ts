@@ -9,7 +9,7 @@ import { MorganInterceptor } from 'nest-morgan';
 @ApiTags('user')
 @Controller('user')
 @UseInterceptors(MorganInterceptor('combined'))
-export class UserController extends CrudController<User, UserCreationRequestDTO, UserUpdateRequestDTO, number> {
+export class UserController extends CrudController<User, UserCreationRequestDTO, UserUpdateRequestDTO, string> {
   constructor(service: UserService) {
     super(service);
   }
@@ -22,7 +22,7 @@ export class UserController extends CrudController<User, UserCreationRequestDTO,
 
   @Put(':id')
   @UsePipes(new ValidationPipe())
-  update(@Param('id') id: number, @Body() body: UserUpdateRequestDTO): Promise<User> {
+  update(@Param('id') id: string, @Body() body: UserUpdateRequestDTO): Promise<User> {
     return this.service.update(id, body);
   }
 }
