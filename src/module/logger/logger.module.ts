@@ -22,10 +22,6 @@ import { createLoggerConfig } from './logger-factory';
     MorganModule
   ],
   providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: MorganInterceptor('combined'),
-    },
     AppLogger,
     SlackLoggerService
   ],

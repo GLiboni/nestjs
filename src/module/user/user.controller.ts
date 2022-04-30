@@ -2,11 +2,13 @@ import { UserCreationRequestDTO, UserUpdateRequestDTO } from './user.types';
 import { CrudController } from './../../common/controller/crud.controller';
 import { User } from './../../entity/user.entity';
 import { UserService } from './user.service';
-import { Body, Controller, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { MorganInterceptor } from 'nest-morgan';
 
 @ApiTags('user')
 @Controller('user')
+@UseInterceptors(MorganInterceptor('combined'))
 export class UserController extends CrudController<User, UserCreationRequestDTO, UserUpdateRequestDTO, number> {
   constructor(service: UserService) {
     super(service);
